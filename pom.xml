@@ -1,0 +1,70 @@
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.arifolth.pulkovo</groupId>
+    <artifactId>base</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Registration and Accounting service</name>
+
+
+    <developers>
+        <developer>
+            <id>arifolth</id>
+            <name>Alexander Nilov</name>
+            <email>arifolth@gmail.com</email>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>cli</module>
+        <module>service</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources-cli</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                          <outputDirectory>${basedir}/cli/src/main/resources/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/schema</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-service</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/service/src/main/resources/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/schema</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
