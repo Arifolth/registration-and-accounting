@@ -108,7 +108,9 @@
                             <excludes>
                                 <exclude>**/*Runner.java</exclude>
                             </excludes>
-                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>src/main/resources/</directory>
                         </fileset>
                     </filesets>
                 </configuration>

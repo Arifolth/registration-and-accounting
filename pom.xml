@@ -9,8 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Registration and Accounting service</name>
-
+    <name>Registration and Accounting service exercise</name>
 
     <developers>
         <developer>

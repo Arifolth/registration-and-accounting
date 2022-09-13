@@ -129,6 +129,18 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.6.5</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.2.8.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.0-801.jdbc4</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -178,7 +190,9 @@
                                 <exclude>**/*DAO.java</exclude>
                                 <exclude>**/*Runner.java</exclude>
                             </excludes>
-                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>src/main/resources/</directory>
                         </fileset>
                     </filesets>
                 </configuration>
