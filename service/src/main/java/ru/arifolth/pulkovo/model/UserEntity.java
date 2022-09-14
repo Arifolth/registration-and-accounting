@@ -1,3 +1,20 @@
+/**
+ *     Copyright (C) 2022 Alexander Nilov
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package ru.arifolth.pulkovo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -49,6 +66,54 @@ public class UserEntity {
         this.userStatus = userStatus;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -94,5 +159,18 @@ public class UserEntity {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public User getUser() {
+        User user = new User();
+
+        user.setId(this.id);
+        user.setUsername(this.username);
+        user.setBirthday(this.birthday);
+        user.setAge(this.age);
+        user.setEmail(this.email);
+        user.setUserStatus(this.userStatus);
+
+        return user;
     }
 }

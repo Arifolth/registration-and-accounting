@@ -187,7 +187,6 @@
                             <directory>src/main/java/</directory>
                             <excludes>
                                 <exclude>**/*Impl.java</exclude>
-                                <exclude>**/*DAO.java</exclude>
                                 <exclude>**/*Runner.java</exclude>
                                 <exclude>**/*Repository.java</exclude>
                                 <exclude>**/*Entity.java</exclude>

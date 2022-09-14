@@ -1,39 +1,62 @@
+/**
+ *     Copyright (C) 2022 Alexander Nilov
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package ru.arifolth.pulkovo.api;
 
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import ru.arifolth.pulkovo.model.Statistics;
+import ru.arifolth.pulkovo.model.User;
 import ru.arifolth.pulkovo.model.UserEntity;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.springframework.data.jpa.domain.Specification.where;
 
 @Component
 public class StatisticsApiDelegateImpl implements StatisticsApiDelegate {
-    @Autowired
-    private UserDAO userDAOImpl;
 
+    public static final int ADULT_AGE = 18;
     @Autowired
     private UserEntityRepository repository;
 
     @Override
     public ResponseEntity<Statistics> getStatistics(Integer reqStatus, Boolean adults) {
-        repository.save(new UserEntity(1,"user1", LocalDate.of(1981,02, 24), 39, "root@localhost.localdomain", 0));
+        Statistics statistics = new Statistics();
+        statistics.setOverall((int) repository.count());
 
-        repository.save(new UserEntity(2,"user2", LocalDate.of(1982,02, 24), 39, "root@localhost.localdomain", 1));
+        List<UserEntity> userEntities = repository.findByUserStatus(reqStatus);
+        List<User> statusUsers = new ArrayList<>();
+        userEntities.forEach(userEntity -> statusUsers.add(userEntity.getUser()));
+        statistics.setStatusUsers(statusUsers);
 
-        repository.save(new UserEntity(3,"user3", LocalDate.of(1983,02, 24), 39, "root@localhost.localdomain", 0));
+        Iterable<UserEntity> foundEntities = repository.findAll();
+        List<User> ageUsers = new ArrayList<>();
+        for (UserEntity userEntity: foundEntities) {
+            if(userEntity.getAge() > ADULT_AGE) {
+                ageUsers.add(userEntity.getUser());
+            }
+        }
+        statistics.setAgeUsers(ageUsers);
 
-
-        System.out.println("\nfindAll()");
-        repository.findAll().forEach(x -> System.out.println(x));
-
-        System.out.println("\nfindById(1)");
-        repository.findById(1).ifPresent(x -> System.out.println(x));
-
-        System.out.println("\nfindByUsername('user2')");
-        repository.findByUsername("user2").forEach(x -> System.out.println(x));
-
-        return userDAOImpl.getStatistics(reqStatus, adults);
+        return new ResponseEntity<>(statistics, HttpStatus.OK);
     }
 }

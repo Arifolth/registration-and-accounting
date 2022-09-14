@@ -29,29 +29,28 @@ public class CliRunner {
 
         final UserApi api = new UserApi();
         User body = new User();
-        body.setId(13);
         body.setUsername("aeiou");
         body.setUserStatus(0);
-        body.setAge(12);
+        body.setAge(19);
         body.email("root@localhost.localdomain");
         body.birthday(LocalDate.of(2020, 1, 8));
         User response = api.createUser(body);
         System.out.println("createUser: " + response);
 
-        final User user = api.getUserById(13);
+        final User user = api.getUserById(response.getId());
         System.out.println("getUserById: " + user);
 
         Status status = new Status();
-        status.setId(13);
+        status.setId(response.getId());
         status.setUserNewStatus(1);
-        status = api.updateUser(status, 13);
+        status = api.updateUser(status, response.getId());
         System.out.println("status: " + status);
 
         final StatisticsApi statisticsApi = new StatisticsApi();
-        Statistics statistics = statisticsApi.getStatistics(13, false);
+        Statistics statistics = statisticsApi.getStatistics(1, true);
         System.out.println("statistics: " + statistics);
 
-        api.deleteUser(13);
+        api.deleteUser(response.getId());
         System.out.println("deleteUser: " + user);
 
     }
