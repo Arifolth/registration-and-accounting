@@ -17,7 +17,6 @@
 
 package ru.arifolth.pulkovo.api;
 
-import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,9 @@ import ru.arifolth.pulkovo.model.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import static org.springframework.data.jpa.domain.Specification.where;
 
 @Component
 public class StatisticsApiDelegateImpl implements StatisticsApiDelegate {
@@ -48,14 +48,18 @@ public class StatisticsApiDelegateImpl implements StatisticsApiDelegate {
         userEntities.forEach(userEntity -> statusUsers.add(userEntity.getUser()));
         statistics.setStatusUsers(statusUsers);
 
-        Iterable<UserEntity> foundEntities = repository.findAll();
-        List<User> ageUsers = new ArrayList<>();
-        for (UserEntity userEntity: foundEntities) {
-            if(userEntity.getAge() > ADULT_AGE) {
-                ageUsers.add(userEntity.getUser());
+        if(adults) {
+            Iterable<UserEntity> foundEntities = repository.findAll();
+            List<User> ageUsers = new ArrayList<>();
+            for (UserEntity userEntity : foundEntities) {
+                if (userEntity.getAge() > ADULT_AGE) {
+                    ageUsers.add(userEntity.getUser());
+                }
             }
+            statistics.setAgeUsers(ageUsers);
         }
-        statistics.setAgeUsers(ageUsers);
+
+        statistics.setMidAge((int) userEntities.stream().mapToInt(UserEntity::getAge).average().getAsDouble());
 
         return new ResponseEntity<>(statistics, HttpStatus.OK);
     }

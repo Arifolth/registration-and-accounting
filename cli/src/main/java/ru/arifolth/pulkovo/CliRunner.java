@@ -1,4 +1,4 @@
-/**
+package ru.arifolth.pulkovo; /**
  *     Copyright (C) 2022 Alexander Nilov
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -29,12 +29,28 @@ public class CliRunner {
 
         final UserApi api = new UserApi();
         User body = new User();
-        body.setUsername("aeiou");
+        body.setUsername("user1");
         body.setUserStatus(0);
-        body.setAge(19);
+        body.setAge(12);
         body.email("root@localhost.localdomain");
         body.birthday(LocalDate.of(2020, 1, 8));
         User response = api.createUser(body);
+        System.out.println("createUser: " + response);
+
+        body.setUsername("user2");
+        body.setUserStatus(0);
+        body.setAge(17);
+        body.email("root@localhost.localdomain");
+        body.birthday(LocalDate.of(2019, 1, 8));
+        response = api.createUser(body);
+        System.out.println("createUser: " + response);
+
+        body.setUsername("user3");
+        body.setUserStatus(0);
+        body.setAge(27);
+        body.email("root@localhost.localdomain");
+        body.birthday(LocalDate.of(2009, 1, 8));
+        response = api.createUser(body);
         System.out.println("createUser: " + response);
 
         final User user = api.getUserById(response.getId());
