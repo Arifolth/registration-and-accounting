@@ -27,6 +27,7 @@ import ru.arifolth.pulkovo.model.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -67,7 +68,9 @@ public class StatisticsApiDelegateImpl implements StatisticsApiDelegate {
             statisticsData.addAll(statistics.getAgeUsers());
         }
 
-        statistics.setMidAge((int) statisticsData.stream().mapToInt(User::getAge).average().getAsDouble());
+        OptionalDouble average = statisticsData.stream().mapToInt(User::getAge).average();
+        if(average.isPresent())
+            statistics.setMidAge((int) average.getAsDouble());
 
         return new ResponseEntity<>(statistics, HttpStatus.OK);
     }
