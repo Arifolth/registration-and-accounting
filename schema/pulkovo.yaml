@@ -33,7 +33,7 @@ paths:
         - name: "reqStatus"
           in: "query"
           description: "Requested status"
-          required: true
+          required: false
           type: "integer"
         - name: "adults"
           in: "query"

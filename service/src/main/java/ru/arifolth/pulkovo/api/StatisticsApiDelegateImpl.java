@@ -43,12 +43,18 @@ public class StatisticsApiDelegateImpl implements StatisticsApiDelegate {
         Statistics statistics = new Statistics();
         statistics.setOverall((int) repository.count());
 
-        List<UserEntity> userEntities = repository.findByUserStatus(reqStatus);
-        List<User> statusUsers = new ArrayList<>();
-        userEntities.forEach(userEntity -> statusUsers.add(userEntity.getUser()));
-        statistics.setStatusUsers(statusUsers);
+        List<User> statisticsData = new ArrayList<>();
 
-        if(adults) {
+        if(reqStatus != null) {
+            List<UserEntity> userEntities = repository.findByUserStatus(reqStatus);
+            List<User> statusUsers = new ArrayList<>();
+            userEntities.forEach(userEntity -> statusUsers.add(userEntity.getUser()));
+            statistics.setStatusUsers(statusUsers);
+
+            statisticsData.addAll(statistics.getStatusUsers());
+        }
+
+        if(adults != null) {
             Iterable<UserEntity> foundEntities = repository.findAll();
             List<User> ageUsers = new ArrayList<>();
             for (UserEntity userEntity : foundEntities) {
@@ -57,9 +63,11 @@ public class StatisticsApiDelegateImpl implements StatisticsApiDelegate {
                 }
             }
             statistics.setAgeUsers(ageUsers);
+
+            statisticsData.addAll(statistics.getAgeUsers());
         }
 
-        statistics.setMidAge((int) userEntities.stream().mapToInt(UserEntity::getAge).average().getAsDouble());
+        statistics.setMidAge((int) statisticsData.stream().mapToInt(User::getAge).average().getAsDouble());
 
         return new ResponseEntity<>(statistics, HttpStatus.OK);
     }

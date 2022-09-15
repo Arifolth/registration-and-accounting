@@ -26,12 +26,13 @@ import java.time.LocalDate;
 
 public class CliRunner {
     public static void main(final String[] args) {
+        System.out.println("***************************************************");
 
         final UserApi api = new UserApi();
         User body = new User();
         body.setUsername("user1");
         body.setUserStatus(0);
-        body.setAge(12);
+        body.setAge(27);
         body.email("root@localhost.localdomain");
         body.birthday(LocalDate.of(2020, 1, 8));
         User response = api.createUser(body);
@@ -47,14 +48,18 @@ public class CliRunner {
 
         body.setUsername("user3");
         body.setUserStatus(0);
-        body.setAge(27);
+        body.setAge(12);
         body.email("root@localhost.localdomain");
         body.birthday(LocalDate.of(2009, 1, 8));
         response = api.createUser(body);
         System.out.println("createUser: " + response);
 
+        System.out.println("***************************************************");
+
         final User user = api.getUserById(response.getId());
         System.out.println("getUserById: " + user);
+
+        System.out.println("***************************************************");
 
         Status status = new Status();
         status.setId(response.getId());
@@ -62,12 +67,17 @@ public class CliRunner {
         status = api.updateUser(status, response.getId());
         System.out.println("status: " + status);
 
+        System.out.println("***************************************************");
+
         final StatisticsApi statisticsApi = new StatisticsApi();
         Statistics statistics = statisticsApi.getStatistics(1, true);
         System.out.println("statistics: " + statistics);
 
+        System.out.println("***************************************************");
+
         api.deleteUser(response.getId());
         System.out.println("deleteUser: " + user);
+        System.out.println("***************************************************");
 
     }
 }
