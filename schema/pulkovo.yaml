@@ -53,7 +53,7 @@ paths:
     get:
       tags:
       - "user"
-      summary: "Get user by user name"
+      summary: "Get user by id"
       description: ""
       operationId: "getUserById"
       produces:
@@ -70,7 +70,7 @@ paths:
           schema:
             $ref: "#/definitions/User"
         400:
-          description: "Invalid username supplied"
+          description: "Invalid user id supplied"
         404:
           description: "User not found"
     put:

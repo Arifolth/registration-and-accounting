@@ -3,9 +3,16 @@
 
 mailto: <arifolth@gmail.com>
 
+## Description
+Contract-first minimalistic REST service consisting of 2 modules: service and the cli client.
+Works with Postgres DB. Builds and runs on JDK11.
+Most of the code is generated out of the yaml OpenApi schema and works out of the box. Some additional manually written code is added on top of that.
+As per requirements, Rest Endpoint provides a CRUD operations on User objects (update is used to change status), also it provides server statistics.
+DB schema and all operations are transiently managed by Spring.
+
 ## Build
 
-Use [Maven](https://maven.apache.org/) to build the ANJRpg.
+Use [Maven](https://maven.apache.org/) to build project.
 
 ```bash
 mvn validate
