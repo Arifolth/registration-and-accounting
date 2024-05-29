@@ -10,7 +10,7 @@ info:
     name: "GPLv3"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost:8080"
-basePath: "/v2"
+basePath: "/v3"
 tags:
 - name: "user"
   description: "Operations on user"
