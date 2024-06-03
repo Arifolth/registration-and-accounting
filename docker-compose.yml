@@ -37,17 +37,8 @@ services:
     networks:
       - postgres
 
-  cli:
-    container_name: cli
-    image: cli:latest
-    depends_on:
-      - service
-    networks:
-      - postgres
-
 volumes:
   db-data:
-  pgadmin-data:
 
 networks:
   postgres:
