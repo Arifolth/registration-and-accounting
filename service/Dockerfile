@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+FROM openjdk:17-jdk-slim
 
 COPY target/service-1.0-SNAPSHOT.jar service.jar
 

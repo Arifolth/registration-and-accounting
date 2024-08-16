@@ -83,7 +83,7 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[${java.version},${java.next.version}]</version>
+                                    <version>[17,]</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
