@@ -64,7 +64,7 @@ public class CliRunner {
         Status status = new Status();
         status.setId(response.getId());
         status.setUserNewStatus(1);
-        status = api.updateUser(status, response.getId());
+        status = api.updateUser(response.getId(), status);
         System.out.println("status: " + status);
 
         System.out.println("***************************************************");
