@@ -20,8 +20,8 @@
     </developers>
 
     <properties>
-        <java.version>11</java.version>
-        <java.next.version>12.0</java.next.version>
+        <java.version>17</java.version>
+        <java.next.version>21.0</java.next.version>
     </properties>
 
     <modules>
@@ -83,7 +83,7 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[17,]</version>
+                                    <version>[${java.version},${java.next.version}]</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>

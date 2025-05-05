@@ -24,7 +24,7 @@ mvn validate
 mvn package
 docker compose up -d
 ```
-Use http://localhost:8080/v3/api-docs/ to access generated raw docs and http://localhost:8080/swagger-ui/index.html for ui
+Use http://localhost:8080/v3/api-docs to access generated raw docs and http://localhost:8080/swagger-ui/index.html for ui
 
 For the client:
 ```bash
